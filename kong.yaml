@@ -1,0 +1,40 @@
+_format_version: "1.1"
+services:
+- connect_timeout: 60000
+  enabled: true
+  host: 172.18.0.1
+  name: service_desk
+  port: 7000
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: pingmydesk
+    path_handling: v0
+    paths:
+    - /plac
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  - https_redirect_status_code: 426
+    name: ticketcreate
+    path_handling: v0
+    methods:
+      - POST
+    paths:
+    - /ticket
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+
+  write_timeout: 60000
